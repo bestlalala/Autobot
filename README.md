@@ -1,6 +1,6 @@
-# 🚗 Autobot_Server
+# 🚗 Autobot
 
-중고차 통합검색 AI 챗봇 서비스, 오토봇의 백엔드 서버입니다.
+중고차 통합검색 AI 챗봇 서비스, 오토봇의 모노레포입니다. 이 저장소는 프론트엔드와 백엔드 모두 포함하고 있습니다.
 
 <br/>
 
@@ -16,6 +16,7 @@ Autobot은 중고차 구매를 고민하는 사용자들을 위한 AI 기반 챗
 <br/>
 
 ## 🛠 기술 스택
+- **프론트엔드**: React, Vite
 - **백엔드**: Java 17, Spring Boot 3.2
 - **캐시 서버**: Redis 7.2
 - **데이터베이스**: PostgreSQL 15
@@ -36,11 +37,10 @@ Autobot은 중고차 구매를 고민하는 사용자들을 위한 AI 기반 챗
 
 #### 1. 저장소 클론
 ```bash
-git clone https://github.com/SWSchool-Straight/autobot-server.git
-cd autobot_server
+git clone https://github.com/SWSchool-Straight/Autobot.git
+cd Autobot
 ```
 <br/>
-
 
 #### 2. AWS Bedrock 리소스 설정
 AWS Bedrock 서비스 설정을 위해 다음 단계를 따라주세요:
@@ -62,9 +62,11 @@ AWS Bedrock 서비스 설정을 위해 다음 단계를 따라주세요:
 <br/>
 
 #### 3. 환경 변수 설정
-docker-compose.yaml 파일에 다음 환경 변수들을 설정합니다:
+`.env` 파일에 다음 환경 변수들을 설정합니다:
 
-```yaml
+```plaintext
+APP_URL=your-app-url (EC2 인스턴스에서 실행한 경우: http://<퍼블릭 IP>)
+DB_PW=your-db-password
 AWS_ACCESS_KEY=your-access-key
 AWS_SECRET_KEY=your-secret-key
 AWS_MODEL_ARN=your-model-arn
@@ -81,14 +83,19 @@ docker-compose up -d
 ```
 
 **실행 후 확인**:
-- 애플리케이션 서버: http://localhost:8080
+- 프론트엔드: http://localhost
+- 백엔드: http://localhost:8080
 - Redis 서버: localhost:6379
 - PostgreSQL 서버: localhost:5432
+> EC2 인스턴스에서 실행한 경우: http://<퍼블릭 IP>
 
 <br/>
 
 ## 🏗 아키텍처
 서비스는 다음과 같은 컴포넌트로 구성되어 있습니다:
+- 🌐 프론트엔드 애플리케이션 (포트: 80)
+  - 사용자 인터페이스 제공
+  - 백엔드 API와 통신
 - 🌐 Spring Boot 애플리케이션 서버 (포트: 8080)
   - REST API 제공
   - AWS Bedrock 연동
@@ -119,7 +126,7 @@ docker-compose up -d
 
 1. **Docker 실행 오류**
    - Docker 데몬이 실행 중인지 확인
-   - 포트 충돌 여부 확인 (8080, 6379, 5432)
+   - 포트 충돌 여부 확인 (80, 8080, 6379, 5432)
    - 메모리 부족 시 Docker 리소스 할당 확인
 
 2. **AWS 연결 문제**
