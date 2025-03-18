@@ -1,0 +1,47 @@
+version: '3.8'
+services:
+  app:
+    image: blooming12/autobot:1.0.5
+    platform: linux/amd64
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATA_REDIS_HOST=redis
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_PW=straight6scraping!
+      - AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }}
+      - AWS_SECRET_KEY=${{ secrets.AWS_SECRET_KEY }}
+      - AWS_REGION=us-east-1
+      # - AWS_MODEL_ARN=
+#      - AWS_KNOWLEDGEBASE_ID=${{ secrets.AWS_KNOWLEDGEBASE_ID }}
+      # - AWS_GUARDRAIL_ID=
+      # - AWS_GUARDRAIL_VERSION=
+    depends_on:
+      redis:
+        condition: service_started
+      postgres:
+        condition: service_healthy
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
+  postgres:
+    image: blooming12/chatpsql:1.0.1
+    platform: linux/amd64
+    environment:
+      - POSTGRES_PASSWORD=straight6scraping!
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pgdata:
