@@ -9,12 +9,12 @@ services:
       - SPRING_DATA_REDIS_HOST=redis
       - DB_HOST=postgres
       - DB_PORT=5432
-      - DB_PW=straight6scraping!
-      - AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }}
-      - AWS_SECRET_KEY=${{ secrets.AWS_SECRET_KEY }}
+      - DB_PW=${DB_PW}
+      - AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
+      - AWS_SECRET_KEY=${AWS_SECRET_KEY}
       - AWS_REGION=us-east-1
       # - AWS_MODEL_ARN=
-#      - AWS_KNOWLEDGEBASE_ID=${{ secrets.AWS_KNOWLEDGEBASE_ID }}
+#      - AWS_KNOWLEDGEBASE_ID=${AWS_KNOWLEDGEBASE_ID}
       # - AWS_GUARDRAIL_ID=
       # - AWS_GUARDRAIL_VERSION=
     depends_on:
