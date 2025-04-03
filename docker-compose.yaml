@@ -17,7 +17,7 @@ services:
       - backend
 
   backend:
-    image: blooming12/autobot:1.0.5.1
+    image: bestlalala/autobot-server:1.0.1
     platform: linux/amd64
     ports:
       - "8080:8080"
