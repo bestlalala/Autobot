@@ -6,8 +6,8 @@ services:
     ports:
       - "80:80"
     environment:
-      - VITE_AUTH_BASE_URL=http://backend:8080 
-      - VITE_CHAT_BASE_URL=http://backend:8080 
+      - VITE_AUTH_BASE_URL=${APP_URL}:8080
+      - VITE_CHAT_BASE_URL=${APP_URL}:8080
     depends_on:
       - backend
 
