@@ -6,8 +6,8 @@ services:
     ports:
       - "80:80"
     environment:
-      - VITE_AUTH_BASE_URL=http://backend:8080
-      - VITE_CHAT_BASE_URL=http://backend:8080
+      - VITE_AUTH_BASE_URL=http://${APP_URL}:8080
+      - VITE_CHAT_BASE_URL=http://${APP_URL}:8080
     depends_on:
       - backend
 
@@ -28,7 +28,7 @@ services:
       # - AWS_KNOWLEDGEBASE_ID=PT7IJMU5EZ
       # - AWS_GUARDRAIL_ID=
       # - AWS_GUARDRAIL_VERSION=
-      - CORS_ALLOWED_ORIGINS=http://localhost,http://localhost:8080,http://localhost:5173,${APP_URL},${APP_URL}:80,${APP_URL}:8080
+      - CORS_ALLOWED_ORIGINS=http://localhost,http://localhost:8080,http://localhost:5173,http://${APP_URL}
     depends_on:
       redis:
         condition: service_started
